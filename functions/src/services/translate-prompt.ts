@@ -6,7 +6,7 @@ export const translate = async (context: string, lang: string): Promise<string> 
     messages: [
       {
         role: 'user',
-        content: `Translate the following text to ${lang} if it is not already in English: ${context}`,
+        content: `Translate the following text to ${lang}: ${context}, word for word.`,
       },
     ],
   });

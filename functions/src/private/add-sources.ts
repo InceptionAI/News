@@ -2,7 +2,7 @@ export const findSourcesItemPrompt = async (
   article: string,
   mission: string,
   subject: string,
-  target_audience: string,
+  targetAudience: string,
 ): Promise<{ system: string; user: string }> => {
   return {
     system: `You will receive an article, you find 3 key element of the article.
@@ -16,14 +16,14 @@ export const findSourcesItemPrompt = async (
       `,
     user: `You must return an array of string containing the key element. Here's the article: "${article}", the mission: "${mission}", the subject of the article: "${subject}".
       Find 3 key element of the article that a source could be added and ALSO be relevant. 
-      Your target audience for this is: "${target_audience}`,
+      Your target audience for this is: "${targetAudience}`,
   };
 };
 
 export const addSourcesToItemPrompt = async (
   keyElement: string,
   subject: string,
-  target_audience: string,
+  targetAudience: string,
 ): Promise<{ system: string; user: string }> => {
   return {
     system: `You will receive an array of key element.
@@ -60,7 +60,7 @@ export const addSourcesToItemPrompt = async (
   
       `,
     user: `Here's the array of key element: "${keyElement}". Find a relevant sources to each of these elements. 
-      ${target_audience ? `Your target audience for this is: "${target_audience}"` : ''}`,
+      ${targetAudience ? `Your target audience for this is: "${targetAudience}"` : ''}`,
   };
 };
 
@@ -85,7 +85,7 @@ export const addSourcesPrompt = async (
   article: string,
   sources: string[],
   listKeyElement: string,
-  target_audience: string,
+  targetAudience: string,
 ): Promise<{ system: string; user: string }> => {
   return {
     system: `You will receive an article, sources for the article and the key element associate to these sources.
@@ -110,7 +110,7 @@ export const addSourcesPrompt = async (
     user: `Add sources to this article: "${article}.
       Here's the list of sources to add to this article: ${sources}" Here's the list of key element: ${listKeyElement}.
       You will return all the article with the sources added to it.
-      Your target audience for this is: "${target_audience}
+      Your target audience for this is: "${targetAudience}
       IMPORTANT: YOU NEED TO DELETE ALL HTML TAGS OF <A></A> OR ANY OTHER LINK TAGS. ADD THE SOURCE SHOULD BE IN APA FORMAT. `,
   };
 };

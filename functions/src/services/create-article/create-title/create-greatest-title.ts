@@ -4,15 +4,14 @@ import { createGreatestTitleEverMadePrompt } from '../../../private/content';
 // Function to generate a great SEO title
 export const createGreatestTitleEverMade = async (
   prompt: string,
-  target_audience: string,
+  targetAudience: string,
   mission: string,
-  lang: string,
   retry: boolean = false,
 ): Promise<{
   title: string;
   id: string;
 }> => {
-  const prompts = await createGreatestTitleEverMadePrompt({ prompt, target_audience, mission, lang });
+  const prompts = await createGreatestTitleEverMadePrompt({ prompt, targetAudience, mission });
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
@@ -35,7 +34,7 @@ export const createGreatestTitleEverMade = async (
     if (retry) {
       throw new Error('Failed to generate a title and id');
     }
-    return createGreatestTitleEverMade(prompt, target_audience, mission, lang, true);
+    return createGreatestTitleEverMade(prompt, targetAudience, mission, true);
   }
 
   const data = JSON.parse(content) as { title: string; id: string };

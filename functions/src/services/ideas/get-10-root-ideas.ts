@@ -1,13 +1,14 @@
 import { openai } from '../../lib/open-ai';
-import { get10IdeasFromIdeaPrompt } from '../../private/ideas';
+import { get10RootIdeasPrompt } from '../../private/ideas';
 import { preprocessJSON } from '../preprocessJSON';
 
 // Function to generate a list of 10 ideas to a given context
-export const get10IdeasFromIdea = async (idea: string, mission: string, target_audience: string): Promise<string[]> => {
-  const prompt = await get10IdeasFromIdeaPrompt(idea, mission, target_audience);
+export const get10RootIdeas = async (mission: string, targetAudience: string): Promise<any> => {
+  const prompt = await get10RootIdeasPrompt(mission, targetAudience);
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
+    response_format: { type: 'json_object' },
     messages: [
       {
         role: 'system',
@@ -20,9 +21,10 @@ export const get10IdeasFromIdea = async (idea: string, mission: string, target_a
     ],
   });
 
-  const result = preprocessJSON(completion.choices[0].message?.content ?? '');
+  const result = preprocessJSON(completion.choices[0].message?.content ?? '').replace('rootIdeas: ', '');
 
   if (!result) {
+    console.log('Error in get-10-root-ideas.ts: no result');
     return [];
   }
   try {
