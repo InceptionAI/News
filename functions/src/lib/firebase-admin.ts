@@ -32,3 +32,5 @@ const app: App = getApps().length
 export const dbAdmin: Firestore = getFirestore(app);
 
 export const bucket = getStorage(app).bucket('gs://inceptionai-61b20.appspot.com');
+
+export const auth = admin.auth();

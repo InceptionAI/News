@@ -2,8 +2,8 @@ import { openai } from '../../../lib/open-ai';
 import { createSEOTitlePrompt } from '../../../private/content';
 
 // Function to generate a great SEO title
-export const createSEOTitle = async (prompt: string, target_audience: string, mission: string, lang: string): Promise<string> => {
-  const prompts = await createSEOTitlePrompt(prompt, target_audience, mission, lang);
+export const createSEOTitle = async (prompt: string, targetAudience: string, mission: string, lang: string): Promise<string> => {
+  const prompts = await createSEOTitlePrompt(prompt, targetAudience, mission, lang);
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',

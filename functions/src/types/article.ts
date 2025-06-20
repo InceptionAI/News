@@ -2,6 +2,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 import { Locale } from './languages';
 
 export type Article = {
+  href: string;
   content: string;
   created: Timestamp;
   id: string;

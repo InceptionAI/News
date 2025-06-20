@@ -1,26 +1,21 @@
 import { LocaleDetails } from '../types/languages';
 
-export const createDatasetPrompt = async (
-  prompt: string,
-  locale: LocaleDetails,
-  type?: 'bar' | 'pie',
-): Promise<{ system: string; user: string }> => {
+export const createDatasetPrompt = async (prompt: string, type?: 'bar' | 'pie'): Promise<{ system: string; user: string }> => {
   //TODO: THIS NEED TO BE GREATLY IMPROVED.
   return {
     system: `Your task is to create a chart data structure.
-      Try to compare 2 elements together in the dataset.
-      Use these 2 elements to create a comparison and contrast between 2 ideas.
-      Use these 2 elements to illustrate a point or a concept.
-      The chart must be easy to understand and visually appealing, therefore the dataset should be simple and meaningful.
-      If the data is a percentage, make sure this is clear that it is a percentage.
-      All data should reflect realistic but yet point proving values.
-      You need to create a dataset for a chart ${type ? `of type ${type}` : 'with a type of bar or pie'}.
-      For bar chart, we need at least 2-3 datasets with multiple data to compare for each clear label.
-      For pie chart, we want one dataset with multiple data to compare and analyze with clear labels.
-      The source of the data should be the most credible source you can find to support the data, formated in APA style.
-      Labels should be clear and explanatory, while still being concise.
-      
-
+      - You will use relevant data to populate the dataset.
+      - Try to compare 2 elements together in the dataset.
+      - Use these 2 elements to create a comparison and contrast between 2 ideas.
+      - Use these 2 elements to illustrate a point or a concept.
+      - The chart must be easy to understand and visually appealing, therefore the dataset should be simple and meaningful.
+      - If the data is a percentage, make sure this is clear that it is a percentage.
+      - All data should reflect realistic but yet point proving values.
+      - You need to create a dataset for a chart ${type ? `of type ${type}` : 'with a type of bar or pie'}.
+      - For bar chart, we need at least 2-3 datasets with multiple data to compare for each clear label.
+      - For pie chart, we want one dataset with multiple data to compare and analyze with clear labels.
+      - The source of the data should be the most credible source you can find to support the data, formated in APA style.
+      - Labels should be clear and explanatory, while still being concise.
 
       Expected JSON output:
       {
@@ -57,8 +52,7 @@ export const createDatasetPrompt = async (
       `,
     user: `Please provide a JSON following the given type structure. The dataset should be meaningful and simple enough to be visually compelling. Ensure that the dataset is relevant to the subject and interesting to engage the audience.
     Return the JSON object only, no comment, no explanation.
-    The context is: "${prompt}".
-    The language of the dataset is all in ${locale.language}.`,
+    The context is: "${prompt}".`,
   };
 };
 

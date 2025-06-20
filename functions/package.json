@@ -21,6 +21,7 @@
   "main": "dist/index.js",
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.1",
+    "@google/generative-ai": "^0.21.0",
     "@types/lodash": "^4.17.7",
     "amazon-paapi": "^1.0.7",
     "body-parser": "^1.20.2",

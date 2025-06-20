@@ -1,26 +1,29 @@
 import { openai } from '../../../lib/open-ai';
-import { getBodyPrompt } from '../../../private/body';
+import { improveConclusionPrompt } from '../../../private/conclusion';
 
 // Function to generate content for a subtitle
-export const createBody = async (
+export const improveConclusion = async (
   subtitle: string,
   mission: string,
-  subject: string,
+  prompt: string,
   targetAudience: string,
-  listOfSubtitles: string[],
+  listSubtitle: string[],
+  CTA: string,
+  domain: string,
+  conclusion: string,
 ): Promise<string> => {
-  const prompt = await getBodyPrompt(subtitle, mission, subject, targetAudience, listOfSubtitles);
+  const prompts = await improveConclusionPrompt(subtitle, mission, prompt, targetAudience, listSubtitle, CTA, domain, conclusion);
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
-        content: prompt.system,
+        content: prompts.system,
       },
       {
         role: 'user',
-        content: prompt.user,
+        content: prompts.user,
       },
     ],
   });
