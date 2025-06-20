@@ -36,7 +36,7 @@ app.post('/createNewArticle', async (req: express.Request, res: express.Response
     prompt,
     source = false,
     clientId,
-    lang = "en",
+    lang = 'en',
     author,
     chart = true,
   } = req.body as {
@@ -71,20 +71,10 @@ app.post('/createNewArticle', async (req: express.Request, res: express.Response
   }
 
   if (!prompt) {
-    const randomIndex = Math.floor(Math.random() * ideas.length);
-    if (ideas.length === 0) {
-      console.log('No ideas left, getting 100 new ideas');
-      ideas = await get100Ideas(mission, targetAudience);
-      await dbAdmin.doc(path_info).update({ ideas: ideas });
-    }
-    prompt = ideas[randomIndex];
-    console.log('No prompt, idea picked: ', prompt);
-    ideas.splice(randomIndex, 1);
-    await dbAdmin.doc(path_info).update({
-      ideas: ideas,
-    });
-    // addInstructions = true;
+    res.status(400).send('Missing required parameters');
+    return;
   }
+
   if (!isValidLanguage(lang)) {
     res.status(400).send('Invalid language');
     return;

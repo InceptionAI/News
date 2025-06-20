@@ -54,7 +54,7 @@ export const createNewArticle = async ({
   let geminiNews = await gemini.generateContent(promptGetRelatedNews(targetAudience, mission, prompt));
   geminiNews = geminiNews.response.text();
 
-  console.log("geminiNews: ", geminiNews);
+  console.log('geminiNews: ', geminiNews);
 
   prompt = prompt + geminiNews;
 
