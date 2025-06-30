@@ -1,6 +1,4 @@
 // cronjob.ts
-import { onSchedule } from 'firebase-functions/v2/scheduler';
-// cronjob.ts
 import { dbAdmin } from './lib/firebase-admin';
 import { handleNewArticle } from './services/create-article/cronjob-new-article';
 
@@ -54,14 +52,3 @@ export const processDailyCronJob = async () => {
     await cronjobsRef.set(data);
   }
 };
-
-/**
- * Firebase scheduled cron job that runs every day at 8:00 AM.
- */
-exports.dailyCronjobs = onSchedule('0 12 * * *', async () => {
-  try {
-    await processDailyCronJob();
-  } catch (error) {
-    console.error('Error running daily cron job:', error);
-  }
-});

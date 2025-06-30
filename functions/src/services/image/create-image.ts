@@ -1,8 +1,7 @@
-import { bucket } from '../../lib/firebase-admin';
 import { openai } from '../../lib/open-ai';
 import { createImagePrompt } from '../../private/image-prompt';
 import { ClientInfo } from '../../types/client-info';
-import { v4 as uuidv4 } from 'uuid';
+import { saveImageStorage } from './save-image-storage';
 
 export const createImage = async ({
   subject,
@@ -50,27 +49,4 @@ export const createImage = async ({
   } else {
     return { url, prompt };
   }
-};
-
-const saveImageStorage = async (url: string, clientId: string, subject: string): Promise<string> => {
-  const image = await fetch(url);
-  const buffer = Buffer.from(await image.arrayBuffer());
-
-  const id = subject.replace(/ /g, '-').toLowerCase();
-
-  const uniqueSuffix = uuidv4();
-  let filePath = `images/${clientId}/${id ?? 'new'}-${uniqueSuffix}.png`;
-
-  const file = bucket.file(filePath);
-
-  // Save the file with the buffer and metadata
-  await file.save(buffer, {
-    metadata: {
-      contentType: 'image/png',
-    },
-  });
-
-  await file.makePublic();
-
-  return file.publicUrl();
 };
